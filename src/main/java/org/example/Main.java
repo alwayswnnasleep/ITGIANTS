@@ -1,14 +1,21 @@
 package org.example;
 
+import org.example.tools.FileSelector;
 import org.example.tools.StringUrlConverter;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Scanner;
 
 public class Main {
+
+
+
     public static void main(String[] argv) {
         try {
-            URL url = StringUrlConverter.stringToUrlConvert("https://firebasestorage.googleapis.com/v0/b/sellcardatabase.appspot.com/o/music%2F1o_prod_hhhcra_Yk.mp3?alt=media&token=efb82ea0-a96e-4466-b7c3-170c61c035c2");
+//            FileSelector selector = new FileSelector();
+//            File file  = selector.selectMp3File();
+            URL url = StringUrlConverter.stringToUrlConvert("https://www.dropbox.com/scl/fi/6qjcws9sxakc8gpk8268b/file_new_laza.mp3?rlkey=gq29ojdvxzfbrpnyj2m2ll6gf&e=1&dl=1");
             Track track = new Track("1o", "Yhapojj", "None", url);
             MusicPlayer player = new MusicPlayer(track);
             while (true) {
