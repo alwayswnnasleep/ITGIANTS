@@ -15,9 +15,14 @@ module org.example.javafx_flexmusic {
     requires java.desktop;
 
     opens org.example.javafx_flexmusic to javafx.fxml;
-    exports org.example.javafx_flexmusic;
+
     exports org.example.javafx_flexmusic.client;
     opens org.example.javafx_flexmusic.client to javafx.fxml;
     exports org.example.javafx_flexmusic.models;
     opens org.example.javafx_flexmusic.models to javafx.fxml;
+
+    exports org.example.javafx_flexmusic.controller;
+    opens org.example.javafx_flexmusic.controller to javafx.fxml;
+    exports org.example.javafx_flexmusic.view;
+    opens org.example.javafx_flexmusic.view to javafx.fxml;
 }

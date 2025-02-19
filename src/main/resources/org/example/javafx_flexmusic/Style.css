@@ -1,0 +1,106 @@
+.button {
+    -fx-background-color: transparent; /* Убирает фон */
+    -fx-border-color: transparent; /* Убирает границы */
+    -fx-text-fill: transparent; /* Убирает текст (если нужно) */
+}
+.button-hover{
+    -fx-background-color: grey;
+    -fx-border-color: grey ;
+}
+.button-auth{
+
+}
+.textFieldsAuth{
+    -fx-background-radius: 20px;
+    -fx-background-color: #443f46;
+}
+.slider .thumb {
+   -fx-color: grey;
+
+}
+
+
+.backgroundColor {
+    -fx-background-color: linear-gradient(to right, #4B1463 2%, #9C38C8 33%, #35389C 80%, #143fd0 99%);
+
+}
+.backgroundColor2 {
+    -fx-background-color: radial-gradient(center 0 780, radius 950px, #4B1463 2%, #9C38C8 33%, #35389C 75%, #143fd0 100%);
+
+}
+.backgroundColor3 {
+    -fx-background-color: #312d33;
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.95), 10, 0, 0, 0);
+}
+.backgroundColorChangeVolume {
+    -fx-background-color: #312d33;
+    -fx-background-radius: 10;
+}
+.backgroundColorSearch {
+    -fx-background-color: #312d33;
+    -fx-background-radius:50;
+}
+.backgroundColorLeft {
+    -fx-background-color: linear-gradient(to top, #4B1463 2%, #9C38C8 33%, #35389C 80%, #143fd0 99%);
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.95), 15, 0, 0, 0);
+}
+.backgroundColorBlack{
+    -fx-background-color:black;
+}
+.backgroundColorGray{
+    -fx-background-color:#534f58;
+
+}
+.backgroundColorRegWindow{
+    -fx-background-color: radial-gradient(center 0 750, radius 1250px, #1a1b1f 36%, #51255d 52%, #483d98 70%,  #1f3990 88%);
+}
+
+.backgroundColorWindow {
+    -fx-background-color: #312d33;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.95), 10, 0, 0, 0);
+    -fx-background-radius: 20px;
+}
+
+.button-shadow-neon{
+    -fx-effect: dropshadow(three-pass-box, #14cab4, 20,0,0,0);
+}
+.slider {
+    -fx-background-color: #312d33; /* Цвет фона слайдера */
+}
+
+.slider .thumb {
+    -fx-background-color: #10b8a4; /* Цвет ползунка */
+}
+
+.slider .track {
+    -fx-background-color: #999999; /* Цвет не заполненной части */
+}
+
+.slider .track:focused {
+    -fx-background-color: #10b8a4; /* Цвет не заполненной части при фокусе */
+}
+
+.table-view {
+    -fx-background-color: rgba(50, 50, 50, 0.4);
+    -fx-background-radius: 14 14 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 20, 0, 0, 0);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: rgba(50, 50, 50, 0.4);
+    -fx-background-radius: 14;
+    -fx-background-insets: 0 0 10 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-pref-height: 50px; /* Увеличение высоты заголовков */
+    -fx-border-width: 0 0 10 0;
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px; /* Увеличение размера шрифта */
+    -fx-alignment: center-left; /* Выравнивание текста по левому краю */
+    -fx-padding: 0 10 0 10; /* Отступы для центровки по высоте */
+}

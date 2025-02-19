@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_flexmusic.controller.RegistrationFormController">
+   <children>
+      <Pane prefHeight="750.0" prefWidth="1000.0" styleClass="backgroundColorRegWindow" stylesheets="@Style.css">
+         <children>
+            <VBox layoutX="277.0" layoutY="137.0" prefHeight="482.0" prefWidth="480.0" styleClass="backgroundColorWindow">
+               <children>
+                  <HBox prefHeight="64.0" prefWidth="480.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label accessibleRole="BUTTON" prefHeight="40.0" prefWidth="100.0" text="SIGN IN" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Separator prefWidth="200.0" style="-fx-background-color: #10b8a4;" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label accessibleRole="BUTTON" prefHeight="40.0" prefWidth="83.0" text="SIGN UP" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Separator prefWidth="200.0" style="-fx-background-color: #10b8a4;" visible="false" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <VBox alignment="CENTER" prefHeight="345.0" prefWidth="480.0">
+                     <children>
+                        <Pane prefHeight="102.0" prefWidth="480.0">
+                           <children>
+                              <Label layoutX="35.0" layoutY="2.0" text="Email" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <TextField alignment="TOP_LEFT" layoutX="29.0" layoutY="34.0" prefHeight="40.0" prefWidth="420.0" promptText="Enter your name" styleClass="textFieldsAuth">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </Pane>
+                        <Pane>
+                           <children>
+                              <Label layoutX="33.0" text="Password" textFill="WHITE">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField layoutX="29.0" layoutY="34.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="420.0" promptText="Enter password" styleClass="textFieldsAuth">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </PasswordField>
+                           </children>
+                        </Pane>
+                        <HBox prefHeight="64.0" prefWidth="480.0">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="CheckBox">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="25.0" />
+                                 </HBox.margin>
+                              </CheckBox>
+                              <Label prefHeight="27.0" prefWidth="182.0" text="Остаться в системе" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets left="-50.0" top="21.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="144.0" style="-fx-background-color: #10b8a4; -fx-background-radius: 20; -fx-text-fill: white;" text="SIGN UP" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Separator prefHeight="0.0" prefWidth="443.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Forgot password" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="180.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <Button fx:id="arrow_back" onAction="#handleBackButtonClick" layoutX="2.0" layoutY="11.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="75.0" text="Button">
+               <graphic>
+                  <ImageView fx:id="a" fitHeight="56.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon-arrow-back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
