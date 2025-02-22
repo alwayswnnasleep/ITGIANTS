@@ -4,6 +4,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
+import org.example.javafx_flexmusic.db.entity.Track;
 
 public class MusicPlayer {
 

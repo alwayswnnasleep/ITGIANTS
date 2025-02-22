@@ -1,20 +1,21 @@
 package org.example.javafx_flexmusic.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.javafx_flexmusic.models.Track;
+import org.example.javafx_flexmusic.db.entity.Track;
+import org.example.javafx_flexmusic.tools.SceneSwitcher;
 
 import java.net.URL;
 import java.util.Objects;
@@ -27,15 +28,15 @@ public class MainController implements Initializable {
     private MediaView mediaView;
 
     @FXML
-    private TableView<Track> table_tracks; // Убедитесь, что тип указан
+    private TableView<Track> table_tracks;
     @FXML
-    private TableColumn<Track, ?> column_play, column_track, column_artist, column_album, column_duration;
+    private TableColumn<Track, Void> column_play; // Колонка для кнопки Play
+    @FXML
+    private TableColumn<Track, String> column_track, column_artist, column_album, column_duration; // Остальные колонки
     @FXML
     private ImageView playPauseIcon;
     @FXML
-    private Button button_play, button_profile;
-    @FXML
-    private Button arrow_back;
+    private Button button_play, button_profile, button_radio;
     @FXML
     private Pane pane_volume_slider;
     @FXML
@@ -45,16 +46,23 @@ public class MainController implements Initializable {
     @FXML
     private Label currentTimeLabel; // Метка для текущего времени
 
+
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        media = new Media("https://www.dropbox.com/scl/fi/evzt9ogogqu1fm7y0vnxx/0c904e9a-6647-477a-b94e-33f7e3405da7.mp3?rlkey=vl8z0eb3b1mxzrdxmwbkse72z&st=smfxysf7&dl=1");
+        // Настройка колонок
+
+        column_track.setCellValueFactory(new PropertyValueFactory<>("title"));
+        column_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+//      column_album.setCellValueFactory(new PropertyValueFactory<>("album"));
+//      column_duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+        media = new Media("https://www.dropbox.com/scl/fi/r11w627ovtlkptkkqq44n/.mp3?rlkey=cont73wv15ns8rsygoywh9p4x&st=5q6tz24q&dl=1");
         mediaPlayer = new MediaPlayer(media);
         mediaView = new MediaView(mediaPlayer);
 
-        // Инициализация слайдера громкости
         slider_volume.setMin(0);
         slider_volume.setMax(1);
-        slider_volume.setValue(0.5); // Установить начальное значение
+        slider_volume.setValue(0.5);
 
         slider_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
             mediaPlayer.setVolume(newValue.doubleValue());
@@ -79,12 +87,6 @@ public class MainController implements Initializable {
             isSeeking[0] = false;
             mediaPlayer.seek(javafx.util.Duration.millis(slider_time.getValue()));
         });
-
-        // Add the listener for the tableView skin property
-        table_tracks.skinProperty().addListener((obs, oldSkin, newSkin) -> {
-            final TableHeaderRow header = (TableHeaderRow) table_tracks.lookup("TableHeaderRow");
-            header.reorderingProperty().addListener((o, oldVal, newVal) -> header.setReordering(false));
-        });
     }
 
     @FXML
@@ -107,24 +109,9 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleProfileButtonClick() {
-        switchScene("/org/example/javafx_flexmusic/RegistrationForm.fxml");
+        SceneSwitcher.switchScene((Stage)button_profile.getScene().getWindow(),"/org/example/javafx_flexmusic/RegistrationScene.fxml" );
     }
 
-    private void switchScene(String fxmlFile) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent newSceneRoot = loader.load();
-            Scene newScene = new Scene(newSceneRoot);
-
-            Stage stage = (Stage) button_profile.getScene().getWindow(); // Получаем текущий Stage
-            stage.setScene(newScene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Метод для форматирования времени
     private String formatDuration(javafx.util.Duration duration) {
         int minutes = (int) duration.toMinutes();
         int seconds = (int) (duration.toSeconds() % 60);

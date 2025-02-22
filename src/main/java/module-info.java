@@ -13,6 +13,10 @@ module org.example.javafx_flexmusic {
     requires javafx.media;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires static lombok;
+    requires java.sql;
+
+    opens org.example.javafx_flexmusic.db.entity to javafx.base;
 
     opens org.example.javafx_flexmusic to javafx.fxml;
 
@@ -25,4 +29,6 @@ module org.example.javafx_flexmusic {
     opens org.example.javafx_flexmusic.controller to javafx.fxml;
     exports org.example.javafx_flexmusic.view;
     opens org.example.javafx_flexmusic.view to javafx.fxml;
+    exports org.example.javafx_flexmusic.db.entity;
+    exports org.example.javafx_flexmusic.Commands;
 }

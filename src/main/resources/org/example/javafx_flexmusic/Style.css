@@ -1,7 +1,7 @@
 .button {
-    -fx-background-color: transparent; /* Убирает фон */
-    -fx-border-color: transparent; /* Убирает границы */
-    -fx-text-fill: transparent; /* Убирает текст (если нужно) */
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: transparent;
 }
 .button-hover{
     -fx-background-color: grey;
@@ -65,19 +65,19 @@
     -fx-effect: dropshadow(three-pass-box, #14cab4, 20,0,0,0);
 }
 .slider {
-    -fx-background-color: #312d33; /* Цвет фона слайдера */
+    -fx-background-color: #312d33;
 }
 
 .slider .thumb {
-    -fx-background-color: #10b8a4; /* Цвет ползунка */
+    -fx-background-color: #10b8a4;
 }
 
 .slider .track {
-    -fx-background-color: #999999; /* Цвет не заполненной части */
+    -fx-background-color: #999999;
 }
 
 .slider .track:focused {
-    -fx-background-color: #10b8a4; /* Цвет не заполненной части при фокусе */
+    -fx-background-color: #10b8a4;
 }
 
 .table-view {
@@ -93,14 +93,15 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-pref-height: 50px; /* Увеличение высоты заголовков */
+    -fx-pref-height: 50px;
     -fx-border-width: 0 0 10 0;
     -fx-background-color: transparent;
 }
 
 .table-view .column-header .label {
     -fx-text-fill: white;
-    -fx-font-size: 14px; /* Увеличение размера шрифта */
-    -fx-alignment: center-left; /* Выравнивание текста по левому краю */
-    -fx-padding: 0 10 0 10; /* Отступы для центровки по высоте */
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10 0 10;
 }
+
