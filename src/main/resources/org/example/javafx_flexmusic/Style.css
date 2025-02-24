@@ -104,4 +104,13 @@
     -fx-alignment: center-left;
     -fx-padding: 0 10 0 10;
 }
+.backgroundColor4 {
 
+    -fx-background-color: rgba(50, 50, 50, 0.4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.95), 20, 0, 0, 0);
+}
+.backgroundColorPane{
+    -fx-background-color: rgba(50, 50, 50, 0.4);
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 20, 0, 0, 0);
+}
