@@ -15,6 +15,7 @@ module org.example.javafx_flexmusic {
     requires java.desktop;
     requires static lombok;
     requires java.sql;
+    requires java.prefs;
 
     opens org.example.javafx_flexmusic.db.entity to javafx.base;
 

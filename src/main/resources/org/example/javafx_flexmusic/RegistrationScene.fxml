@@ -101,7 +101,7 @@
                         </Pane>
                         <HBox prefHeight="64.0" prefWidth="480.0">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="CheckBox">
+                              <CheckBox fx:id="stay_logged_checkbox" mnemonicParsing="false" text="CheckBox">
                                  <HBox.margin>
                                     <Insets left="35.0" top="25.0" />
                                  </HBox.margin>
@@ -127,7 +127,7 @@
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin></Separator>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Forgot password" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="forgot_password_label" alignment="CENTER" contentDisplay="CENTER" text="Forgot password" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="16.0" />
                      </font>

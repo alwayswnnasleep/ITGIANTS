@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.javafx_flexmusic.client.Client;
 import org.example.javafx_flexmusic.db.entity.User;
+import org.example.javafx_flexmusic.db.entity.UserSession;
+import org.example.javafx_flexmusic.tools.AuthUtils;
 import org.example.javafx_flexmusic.tools.SceneSwitcher;
 
 import java.net.URL;
@@ -26,6 +28,8 @@ public class RegistrationSceneController implements Initializable {
     Separator sign_in_separator, sign_up_separator;
     @FXML
     Pane username_pane;
+    @FXML
+    CheckBox stay_logged_checkbox;
 
     @FXML
     private Button back_button, sign_in_button;
@@ -75,12 +79,31 @@ public class RegistrationSceneController implements Initializable {
         }
         if (isSignIn) {
             User user = User.createForSignIn(usernameOrEmail, password);
-            client.loginUser(user);
+            User loggedUser = client.loginUser(user);
+            if(loggedUser != null) {
+                UserSession.getInstance().setCurrentUser(loggedUser);
+                if(stay_logged_checkbox.isSelected()) {
+                    AuthUtils.saveUserSession();
+                } else {
+                    AuthUtils.notSaveUserSession();
+                }
+                System.out.println("Logged: " + loggedUser);
+            }
         }
         if (isSignUp) {
             username = username_field.getText();
             User user = User.createForSignUp(username, usernameOrEmail, password);
-            client.registerUser(user);
+            User registeredUser = client.registerUser(user);
+            if(registeredUser != null) {
+                UserSession.getInstance().setCurrentUser(registeredUser);
+                if(stay_logged_checkbox.isSelected()) {
+                    AuthUtils.saveUserSession();
+                    System.out.println("U stay logged in system: " + registeredUser);
+                } else {
+                    AuthUtils.notSaveUserSession();
+                    System.out.println("U not stay logged, but reg: " + registeredUser);
+                }
+            }
         }
     }
 

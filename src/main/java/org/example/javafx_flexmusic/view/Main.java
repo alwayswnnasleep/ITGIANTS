@@ -9,8 +9,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import org.example.javafx_flexmusic.db.entity.UserSession;
 import org.example.javafx_flexmusic.models.MusicPlayer;
-
+import org.example.javafx_flexmusic.tools.AuthUtils;
 
 
 public class Main extends Application {
@@ -18,6 +19,8 @@ public class Main extends Application {
     private static MusicPlayer player;
 
     public static void main(String[] argv) {
+        AuthUtils.loadUserSession();
+        System.out.println(UserSession.getInstance().getCurrentUser());
         launch(argv);
     }
     @Override

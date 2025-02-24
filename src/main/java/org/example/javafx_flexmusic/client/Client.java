@@ -32,31 +32,33 @@ public class Client {
         }
     }
 
-    public void loginUser(User user) {
+    public User loginUser(User user) {
         try {
             connection.connect(serverIp, serverPort);
             User loggedUser = userService.loginUser(user);
             if(loggedUser != null) {
-                System.out.println("Logged user: " + loggedUser);
+                return loggedUser;
             }
             connection.disconnect();
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void registerUser(User user) {
+    public User registerUser(User user) {
         try {
             connection.connect(serverIp, serverPort);
 
             User createdUser = userService.registerUser(user);
             if (createdUser != null) {
-                System.out.println("Registered: " + createdUser);
+                return createdUser;
             }
             connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void getAllTracks() {
