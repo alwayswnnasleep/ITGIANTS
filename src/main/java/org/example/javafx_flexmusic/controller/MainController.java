@@ -3,103 +3,76 @@ package org.example.javafx_flexmusic.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import org.example.javafx_flexmusic.db.entity.Track;
-import org.example.javafx_flexmusic.tools.SceneSwitcher;
+import org.example.javafx_flexmusic.db.entity.UserSession;
+import org.example.javafx_flexmusic.models.MediaPlayerManager;
+import org.example.javafx_flexmusic.tools.IconManager;
+import org.example.javafx_flexmusic.tools.StageSwitcher;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private Media media;
-    private MediaPlayer mediaPlayer;
-    private MediaView mediaView;
+    private MediaPlayerManager mediaManager;
+    private IconManager iconManager;
+
+    private static final String PROFILE_ICON_WHITE_PATH = "/org/example/javafx_flexmusic/images/icon-profile-white.png";
+    private static final String PROFILE_ICON_GRAY_PATH = "/org/example/javafx_flexmusic/images/icon-profile-gray.png";
+    private static final String MUSIC_ICON_WHITE_PATH = "/org/example/javafx_flexmusic/images/icon-music-white.png";
+    private static final String MUSIC_ICON_GRAY_PATH = "/org/example/javafx_flexmusic/images/icon-music-gray.png";
+    private static final String RADIO_ICON_WHITE_PATH = "/org/example/javafx_flexmusic/images/icon-radio-white.png";
+    private static final String RADIO_ICON_GRAY_PATH = "/org/example/javafx_flexmusic/images/icon-radio-gray.png";
 
     @FXML
     private TableView<Track> table_tracks;
     @FXML
-    private TableColumn<Track, Void> column_play; // Колонка для кнопки Play
+    private TableColumn<Track, Void> column_play;
     @FXML
-    private TableColumn<Track, String> column_track, column_artist, column_album, column_duration; // Остальные колонки
+    private TableColumn<Track, String> column_track, column_artist, column_album, column_duration;
     @FXML
-    private ImageView playPauseIcon;
+    private ImageView playPauseIcon, profile_icon;
     @FXML
-    private Button button_play, button_profile, button_radio;
+    private Button button_music, button_profile, button_radio;
     @FXML
     private Pane pane_volume_slider;
     @FXML
-    private Slider slider_time; // Слайдер времени
+    private Slider slider_time;
     @FXML
-    private Slider slider_volume; // Слайдер громкости
+    private Slider slider_volume;
     @FXML
-    private Label currentTimeLabel; // Метка для текущего времени
+    private Label currentTimeLabel;
+    @FXML
+    private BorderPane border_pane;
 
+    private void initializeIconManager() {
+        iconManager = new IconManager();
+        iconManager.addButton(button_music, MUSIC_ICON_WHITE_PATH, MUSIC_ICON_GRAY_PATH);
+        iconManager.addButton(button_profile, PROFILE_ICON_WHITE_PATH, PROFILE_ICON_GRAY_PATH);
+        iconManager.addButton(button_radio, RADIO_ICON_WHITE_PATH, RADIO_ICON_GRAY_PATH);
+    }
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        // Настройка колонок
-
+        initializeIconManager();
+        mediaManager = new MediaPlayerManager(slider_time, slider_volume, playPauseIcon, currentTimeLabel);
         column_track.setCellValueFactory(new PropertyValueFactory<>("title"));
         column_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
 //      column_album.setCellValueFactory(new PropertyValueFactory<>("album"));
 //      column_duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 
-        media = new Media("https://www.dropbox.com/scl/fi/r11w627ovtlkptkkqq44n/.mp3?rlkey=cont73wv15ns8rsygoywh9p4x&st=5q6tz24q&dl=1");
-        mediaPlayer = new MediaPlayer(media);
-        mediaView = new MediaView(mediaPlayer);
-
-        slider_volume.setMin(0);
-        slider_volume.setMax(1);
-        slider_volume.setValue(0.5);
-
-        slider_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
-            mediaPlayer.setVolume(newValue.doubleValue());
-        });
-
-        // Инициализация слайдера времени
-        mediaPlayer.setOnReady(() -> {
-            slider_time.setMin(0);
-            slider_time.setMax(mediaPlayer.getTotalDuration().toMillis());
-        });
-
-        final boolean[] isSeeking = {false};
-        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isSeeking[0]) {
-                slider_time.setValue(newValue.toMillis());
-                currentTimeLabel.setText(formatDuration(newValue));
-            }
-        });
-
-        slider_time.setOnMousePressed(event -> isSeeking[0] = true);
-        slider_time.setOnMouseReleased(event -> {
-            isSeeking[0] = false;
-            mediaPlayer.seek(javafx.util.Duration.millis(slider_time.getValue()));
-        });
     }
 
     @FXML
     private void playMusic() {
-        if (mediaPlayer != null) {
-            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                mediaPlayer.pause();
-                playPauseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/example/javafx_flexmusic/images/icon-play.png"))));
-            } else {
-                mediaPlayer.play();
-                playPauseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/example/javafx_flexmusic/images/icon-pause.png"))));
-            }
-        }
+        mediaManager.togglePlayPause();
     }
 
     @FXML
@@ -108,13 +81,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void handleProfileButtonClick() {
-        SceneSwitcher.switchScene((Stage)button_profile.getScene().getWindow(),"/org/example/javafx_flexmusic/RegistrationScene.fxml" );
+    private void handleMusicButtonClick() throws Exception {
+        iconManager.selectButton(button_music);
+        AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/main.fxml"));
+        border_pane.setCenter(view);
     }
 
-    private String formatDuration(javafx.util.Duration duration) {
-        int minutes = (int) duration.toMinutes();
-        int seconds = (int) (duration.toSeconds() % 60);
-        return String.format("%02d:%02d", minutes, seconds);
+    @FXML
+    private void handleProfileButtonClick() throws Exception {
+        if (UserSession.getInstance().getCurrentUser() == null) {
+            StageSwitcher.switchStage((Stage) button_profile.getScene().getWindow(), "/org/example/javafx_flexmusic/RegistrationScene.fxml");
+        } else {
+            iconManager.selectButton(button_profile);
+            AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/ProfileScene.fxml"));
+            border_pane.setCenter(view);
+        }
     }
 }

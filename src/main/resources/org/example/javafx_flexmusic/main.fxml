@@ -20,13 +20,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_flexmusic.controller.MainController">
     <children>
-        <BorderPane fx:id="red_btn" layoutY="-1.0" opacity="0.92" prefHeight="750.0" prefWidth="1000.0" styleClass="backgroundColorRegWindow" stylesheets="@Style.css">
+        <BorderPane fx:id="border_pane" layoutY="-1.0" opacity="0.92" prefHeight="750.0" prefWidth="1000.0" styleClass="backgroundColorRegWindow" stylesheets="@Style.css">
             <top>
                 <HBox alignment="CENTER" prefHeight="96.0" prefWidth="930.0" BorderPane.alignment="CENTER">
                     <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-search.png" />
+                                <Image url="@images/icon-search-gray.png" />
                             </image>
                         </ImageView>
                         <TextField prefHeight="38.0" prefWidth="356.0" promptText="Поиск" styleClass="backgroundColorSearch" />
@@ -64,7 +64,7 @@
                     <graphic>
                         <ImageView fitHeight="31.0" fitWidth="30.0" layoutX="20.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-menu.png" />
+                                <Image url="@images/icon-menu-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -78,11 +78,11 @@
                         <Insets left="10.0" top="-20.0" />
                     </padding>
                 </Button>
-                <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0" stylesheets="@Style.css" text="music">
+                <Button fx:id="button_music" onAction="#handleMusicButtonClick" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0" stylesheets="@Style.css" text="music">
                     <graphic>
                         <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-music-selected.png" />
+                                <Image url="@images/icon-music-white.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -100,7 +100,7 @@
                     <graphic>
                         <ImageView fx:id="iconRadio" fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-radio.png" />
+                                <Image url="@images/icon-radio-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -118,7 +118,7 @@
                     <graphic>
                         <ImageView fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-upload.png" />
+                                <Image url="@images/icon-upload-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -136,7 +136,7 @@
                     <graphic>
                         <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-downloadd.png" />
+                                <Image url="@images/icon-download-s-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -154,7 +154,7 @@
                     <graphic>
                         <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-settings.png" />
+                                <Image url="@images/icon-settings-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -170,9 +170,9 @@
                 </Button>
                 <Button fx:id="button_profile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleProfileButtonClick" prefHeight="0.0" prefWidth="0.0" stylesheets="@Style.css" text="profile">
                     <graphic>
-                        <ImageView fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profile_icon" fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-profile.png" />
+                                <Image url="@images/icon-profile-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -195,7 +195,7 @@
                     <graphic>
                         <ImageView fx:id="b" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-previous.png" />
+                                <Image url="@images/icon-previous-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -204,7 +204,7 @@
                     <graphic>
                         <ImageView fx:id="playPauseIcon" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-play.png" />
+                                <Image url="@images/icon-play-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -213,7 +213,7 @@
                     <graphic>
                         <ImageView fx:id="button_next" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-next.png" />
+                                <Image url="@images/icon-next-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -247,7 +247,7 @@
                     <graphic>
                         <ImageView id="button_v" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/icon-volume.png" />
+                                <Image url="@images/icon-volume-gray.png" />
                             </image>
                         </ImageView>
                     </graphic>

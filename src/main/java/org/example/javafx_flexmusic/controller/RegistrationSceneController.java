@@ -1,61 +1,100 @@
 package org.example.javafx_flexmusic.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.javafx_flexmusic.client.Client;
 import org.example.javafx_flexmusic.db.entity.User;
 import org.example.javafx_flexmusic.db.entity.UserSession;
 import org.example.javafx_flexmusic.tools.AuthUtils;
-import org.example.javafx_flexmusic.tools.SceneSwitcher;
+import org.example.javafx_flexmusic.tools.StageSwitcher;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegistrationSceneController implements Initializable {
 
+    private static final String VISIBILITY_OFF_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-off-gray.png";
+    private static final String VISIBILITY_ON_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-gray.png";
+
     private boolean isSignIn = true;
-    private boolean isSignUp = false;
+    private boolean visibilityPassword = false;
 
     @FXML
-    Label sign_in_label, sign_up_label;
+    private Label sign_in_label, sign_up_label;
     @FXML
-    Separator sign_in_separator, sign_up_separator;
+    private Separator sign_in_separator, sign_up_separator;
     @FXML
-    Pane username_pane;
+    private Pane username_pane;
     @FXML
-    CheckBox stay_logged_checkbox;
-
+    private CheckBox stay_logged_checkbox;
     @FXML
-    private Button back_button, sign_in_button;
+    private Button back_button, sign_button;
     @FXML
-    private TextField username_or_email_field, username_field;
+    private TextField username_or_email_field, username_field, password_text_field;
     @FXML
     private PasswordField password_field;
+    @FXML
+    private ImageView visibility_off_icon;
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        resetToSignInMode();
+    }
+
+    private void resetToSignInMode() {
         isSignIn = true;
-        isSignUp = false;
+        visibilityPassword = false;
         username_pane.setVisible(false);
         username_pane.setManaged(false);
+        password_text_field.setVisible(false);
+        updateVisibilityIcon();
+    }
+
+    private void clearFields() {
+        username_field.clear();
+        username_or_email_field.clear();
+        password_field.clear();
+        password_text_field.clear();
     }
 
     private void switchMode(boolean isSignInMode) {
+        clearFields();
+        resetPasswordVisibility();
+
         sign_in_separator.setVisible(isSignInMode);
         sign_up_separator.setVisible(!isSignInMode);
+
         username_pane.setVisible(!isSignInMode);
         username_pane.setManaged(!isSignInMode);
 
         isSignIn = isSignInMode;
-        isSignUp = !isSignInMode;
+        sign_button.setText(isSignInMode ? "ВХОД" : "РЕГИСТРАЦИЯ");
+    }
 
-        sign_in_button.setText(isSignInMode ? "SIGN IN" : "SIGN UP");
+    private void resetPasswordVisibility() {
+        visibilityPassword = false;
+        password_field.setVisible(true);
+        password_text_field.setVisible(false);
+        updateVisibilityIcon();
+    }
+
+    private void updateVisibilityIcon() {
+        String imagePath = visibilityPassword ? VISIBILITY_ON_ICON_PATH : VISIBILITY_OFF_ICON_PATH;
+        visibility_off_icon.setImage(new Image(getClass().getResourceAsStream(imagePath)));
+    }
+
+    private boolean areFieldsValid() {
+        if (isSignIn) {
+            return !username_or_email_field.getText().trim().isEmpty() && !password_field.getText().trim().isEmpty();
+        }
+        return !username_field.getText().trim().isEmpty() &&
+                !username_or_email_field.getText().trim().isEmpty() &&
+                !password_field.getText().trim().isEmpty();
     }
 
     @FXML
@@ -70,45 +109,68 @@ public class RegistrationSceneController implements Initializable {
 
     @FXML
     private void handleSignButtonClick() {
+        if (!areFieldsValid()) {
+            return;
+        }
+
         Client client = new Client();
         String usernameOrEmail = username_or_email_field.getText().trim();
         String password = password_field.getText().trim();
-        String username;
-        if (usernameOrEmail.isEmpty() || password.isEmpty()) {
-            return;
-        }
+
         if (isSignIn) {
-            User user = User.createForSignIn(usernameOrEmail, password);
-            User loggedUser = client.loginUser(user);
-            if(loggedUser != null) {
-                UserSession.getInstance().setCurrentUser(loggedUser);
-                if(stay_logged_checkbox.isSelected()) {
-                    AuthUtils.saveUserSession();
-                } else {
-                    AuthUtils.notSaveUserSession();
-                }
-                System.out.println("Logged: " + loggedUser);
-            }
+            handleSignIn(client, usernameOrEmail, password);
+        } else {
+            handleSignUp(client, usernameOrEmail, password);
         }
-        if (isSignUp) {
-            username = username_field.getText();
-            User user = User.createForSignUp(username, usernameOrEmail, password);
-            User registeredUser = client.registerUser(user);
-            if(registeredUser != null) {
-                UserSession.getInstance().setCurrentUser(registeredUser);
-                if(stay_logged_checkbox.isSelected()) {
-                    AuthUtils.saveUserSession();
-                    System.out.println("U stay logged in system: " + registeredUser);
-                } else {
-                    AuthUtils.notSaveUserSession();
-                    System.out.println("U not stay logged, but reg: " + registeredUser);
-                }
-            }
+    }
+
+    private void handleSignIn(Client client, String usernameOrEmail, String password) {
+        User user = User.createForSignIn(usernameOrEmail, password);
+        User loggedUser = client.loginUser(user);
+
+        if (loggedUser != null) {
+            handleSuccessfulLogin(loggedUser);
         }
+    }
+
+    private void handleSignUp(Client client, String usernameOrEmail, String password) {
+        String username = username_field.getText().trim();
+        User user = User.createForSignUp(username, usernameOrEmail, password);
+        User registeredUser = client.registerUser(user);
+
+        if (registeredUser != null) {
+            handleSuccessfulLogin(registeredUser);
+        }
+    }
+
+    private void handleSuccessfulLogin(User user) {
+        UserSession.getInstance().setCurrentUser(user);
+        if (stay_logged_checkbox.isSelected()) {
+            AuthUtils.saveUserSession();
+        } else {
+            AuthUtils.notSaveUserSession();
+        }
+        StageSwitcher.switchStage((Stage) sign_button.getScene().getWindow(), "/org/example/javafx_flexmusic/main.fxml");
     }
 
     @FXML
     private void handleBackButtonClick() {
-        SceneSwitcher.switchScene((Stage) back_button.getScene().getWindow(), "/org/example/javafx_flexmusic/main.fxml");
+        StageSwitcher.switchStage((Stage) back_button.getScene().getWindow(), "/org/example/javafx_flexmusic/main.fxml");
+    }
+
+    @FXML
+    private void handleVisibilityOffIconClick() {
+        visibilityPassword = !visibilityPassword;
+        updateVisibilityIcon();
+
+        if (visibilityPassword) {
+            password_text_field.setText(password_field.getText());
+            password_field.setVisible(false);
+            password_text_field.setVisible(true);
+        } else {
+            password_field.setText(password_text_field.getText());
+            password_text_field.setVisible(false);
+            password_field.setVisible(true);
+        }
     }
 }

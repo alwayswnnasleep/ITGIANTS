@@ -11,8 +11,10 @@
 
 }
 .textFieldsAuth{
+
     -fx-background-radius: 20px;
     -fx-background-color: #443f46;
+     -fx-text-fill: #FFFFFF;
 }
 .slider .thumb {
    -fx-color: grey;
