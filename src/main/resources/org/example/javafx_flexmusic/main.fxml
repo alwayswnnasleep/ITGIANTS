@@ -38,7 +38,7 @@
                         <Insets left="10.0" top="-20.0" />
                     </padding>
                 </Button>
-                <Button fx:id="button_music" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleMusicButtonClick" prefHeight="40.0" prefWidth="30.0" stylesheets="@Style.css" text="music">
+                <Button fx:id="music_button" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleMusicButtonClick" prefHeight="40.0" prefWidth="30.0" stylesheets="@Style.css" text="music">
                     <graphic>
                         <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -56,7 +56,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="button_radio" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" stylesheets="@Style.css" text="radio">
+                <Button fx:id="radio_button" mnemonicParsing="false" prefHeight="31.0" prefWidth="31.0" stylesheets="@Style.css" text="radio">
                     <graphic>
                         <ImageView fx:id="iconRadio" fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -74,7 +74,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="36.0" stylesheets="@Style.css" text="upload">
+                <Button fx:id="upload_button" onAction="#handleUploadButtonClick" mnemonicParsing="false" prefHeight="23.0" prefWidth="36.0" stylesheets="@Style.css" text="upload">
                     <graphic>
                         <ImageView fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -128,7 +128,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="button_profile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleProfileButtonClick" prefHeight="0.0" prefWidth="0.0" stylesheets="@Style.css" text="profile">
+                <Button fx:id="profile_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleProfileButtonClick" prefHeight="0.0" prefWidth="0.0" stylesheets="@Style.css" text="profile">
                     <graphic>
                         <ImageView fx:id="profile_icon" fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>

@@ -16,7 +16,7 @@ import org.example.javafx_flexmusic.tools.StageSwitcher;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RegistrationSceneController implements Initializable {
+public class RegistrationController implements Initializable {
 
     private static final String VISIBILITY_OFF_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-off-gray.png";
     private static final String VISIBILITY_ON_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-gray.png";

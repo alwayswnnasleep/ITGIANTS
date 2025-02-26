@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,61 +11,78 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_flexmusic.controller.UploadTrackController">
    <children>
       <BorderPane fx:id="border_pane" opacity="0.92" prefHeight="700.0" prefWidth="940.0" styleClass="backgroundColorRegWindow" stylesheets="@Style.css">
          <top>
-            <Pane prefHeight="178.0" prefWidth="940.0" BorderPane.alignment="CENTER">
+            <!-- Основной контейнер -->
+            <StackPane alignment="CENTER" prefHeight="700.0" prefWidth="940.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" layoutX="65.0" layoutY="79.0" prefHeight="553.0" prefWidth="807.0" styleClass="backgroundColor4">
+                  <Pane prefHeight="178.0" prefWidth="940.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="455.0" prefWidth="807.0">
+                        <VBox alignment="CENTER" layoutX="65.0" layoutY="79.0" prefHeight="553.0" prefWidth="807.0" styleClass="backgroundColor4">
                            <children>
-                              <ImageView fitHeight="220.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" style="-fx-blend-mode: white;">
-                                 <image>
-                                    <Image url="@../../../../../../../../../Downloads/icon-place-photo.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="180.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <VBox alignment="CENTER" prefHeight="480.0" prefWidth="220.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="455.0" prefWidth="807.0">
                                  <children>
-                                    <TextField promptText="Название" styleClass="textFieldsAuth">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <ComboBox prefHeight="26.0" prefWidth="300.0" promptText="Жанр" style="-fx-text-fill: white;" styleClass="textFieldsAuth">
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin></ComboBox>
-                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Выбрать файл">
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin></Button>
+                                    <ImageView fitHeight="220.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/icon-place-photo-white.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="180.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER" prefHeight="480.0" prefWidth="220.0">
+                                       <children>
+                                          <TextField fx:id="title_track_field" promptText="Название" styleClass="textFieldsAuth">
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="genre_comboBox" prefHeight="26.0" prefWidth="300.0" promptText="Жанр" styleClass="textFieldsAuth">
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <Button fx:id="select_file_button" mnemonicParsing="false" onAction="#handleSelectFileButtonClick" prefHeight="27.0" prefWidth="158.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Выбрать файл">
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                          <ProgressIndicator fx:id="progress_indicator" maxHeight="100.0" maxWidth="100.0" prefHeight="50.0" prefWidth="67.0" visible="false">
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </ProgressIndicator>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
                                  </children>
-                              </VBox>
+                              </HBox>
+                              <Button fx:id="upload_button" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="41.0" prefWidth="179.0" style="-fx-background-color: #17bd36;" styleClass="textFieldsAuth" text="Загрузить">
+                                 <graphic>
+                                    <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/upload-selected.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
                            </children>
-                        </HBox>
-                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="179.0" style="-fx-background-color: #17bd36;" styleClass="textFieldsAuth" text="Загрузить">
-                           <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/upload-selected.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="15.0" />
-                           </font></Button>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </Pane>
                </children>
-            </Pane>
+            </StackPane>
          </top>
       </BorderPane>
    </children>

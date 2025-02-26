@@ -1,4 +1,4 @@
-package org.example.javafx_flexmusic.models;
+package org.example.javafx_flexmusic.controller;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -11,7 +11,7 @@ import javafx.scene.media.MediaView;
 import java.util.Objects;
 
 
-public class MediaPlayerManager {
+public class MediaPlayerController {
 
     private final MediaPlayer mediaPlayer;
     private Media media;
@@ -20,7 +20,7 @@ public class MediaPlayerManager {
     private final Label currentTime;
 
 
-    public MediaPlayerManager(Slider timeSlider, Slider volumeSlider, ImageView playPauseIcon, Label currentTime) {
+    public MediaPlayerController(Slider timeSlider, Slider volumeSlider, ImageView playPauseIcon, Label currentTime) {
         media = new Media("https://www.dropbox.com/scl/fi/r11w627ovtlkptkkqq44n/.mp3?rlkey=cont73wv15ns8rsygoywh9p4x&st=5q6tz24q&dl=1");
         mediaPlayer = new MediaPlayer(media);
         mediaView = new MediaView(mediaPlayer);
@@ -35,7 +35,6 @@ public class MediaPlayerManager {
             mediaPlayer.setVolume(newValue.doubleValue());
         });
 
-        // Инициализация слайдера времени
         mediaPlayer.setOnReady(() -> {
             timeSlider.setMin(0);
             timeSlider.setMax(mediaPlayer.getTotalDuration().toMillis());

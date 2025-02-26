@@ -17,15 +17,10 @@ public class Client {
     private final TrackService trackService = new TrackService(connection);
     private final UserService userService = new UserService(connection);
 
-    public void postTrack() {
+    public void postTrack(Track track, File file) {
         try {
             connection.connect(serverIp, serverPort);
-
-            File file = FileSelector.selectMp3File();
-            Track track = new Track();
-            // TODO: Заполнить трек данными (название, артист и т.д.)
             trackService.postTrack(file, track);
-
             connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();

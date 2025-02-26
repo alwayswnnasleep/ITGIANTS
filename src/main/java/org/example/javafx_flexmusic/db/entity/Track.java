@@ -1,19 +1,17 @@
 package org.example.javafx_flexmusic.db.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class Track {
 
     private Integer id;
     private Integer user_id;
-    private Integer last;
+    private String duration;
     private String title;
     private String url;
     private String genre;
