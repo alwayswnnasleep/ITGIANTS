@@ -11,7 +11,7 @@ import java.sql.Connection;
 
 public class Client {
 
-    private final String serverIp = "127.0.0.1";
+    private final String serverIp = "192.168.43.178";
     private final int serverPort = 12345;
     private final SocketConnection connection = new SocketConnection();
     private final TrackService trackService = new TrackService(connection);

@@ -36,8 +36,6 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Track, Void> column_play;
     @FXML
-    private TableColumn<Track, String> column_track, column_artist, column_album, column_duration;
-    @FXML
     private ImageView playPauseIcon, profile_icon;
     @FXML
     private Button button_music, button_profile, button_radio;
@@ -60,13 +58,15 @@ public class MainController implements Initializable {
     }
 
     @Override
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        initializeIconManager();
-        mediaManager = new MediaPlayerManager(slider_time, slider_volume, playPauseIcon, currentTimeLabel);
-        column_track.setCellValueFactory(new PropertyValueFactory<>("title"));
-        column_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
-//      column_album.setCellValueFactory(new PropertyValueFactory<>("album"));
-//      column_duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources){
+        try {
+            AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/SearchScene.fxml"));
+            border_pane.setCenter(view);
+            initializeIconManager();
+            mediaManager = new MediaPlayerManager(slider_time, slider_volume, playPauseIcon, currentTimeLabel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -83,7 +83,7 @@ public class MainController implements Initializable {
     @FXML
     private void handleMusicButtonClick() throws Exception {
         iconManager.selectButton(button_music);
-        AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/main.fxml"));
+        AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/SearchScene.fxml"));
         border_pane.setCenter(view);
     }
 

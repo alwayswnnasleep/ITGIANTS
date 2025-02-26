@@ -15,40 +15,40 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_flexmusic.controller.ProfileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_flexmusic.controller.ProfileController">
     <children>
         <BorderPane fx:id="red_btn" opacity="0.92" prefHeight="750.0" prefWidth="940.0" styleClass="backgroundColorRegWindow" stylesheets="@Style.css" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <Pane prefHeight="100.0" prefWidth="940.0" BorderPane.alignment="CENTER">
+                <Pane prefHeight="80.0" prefWidth="940.0" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox prefHeight="100.0" prefWidth="940.0" styleClass="backgroundColor4">
+                        <HBox prefHeight="80.0" prefWidth="940.0" styleClass="backgroundColor4">
                             <children>
-                                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@images/icon-profile-gray.png" />
                                     </image>
                                     <HBox.margin>
-                                        <Insets left="10.0" top="10.0" />
+                                        <Insets left="10.0" top="20.0" />
                                     </HBox.margin>
                                 </ImageView>
-                                <VBox prefHeight="100.0" prefWidth="780.0">
+                                <VBox prefHeight="80.0" prefWidth="780.0">
                                     <children>
-                                        <Label fx:id="username_label" prefHeight="47.0" prefWidth="388.0" text="Name" textFill="WHITE">
+                                        <Label fx:id="username_label" prefHeight="12.0" prefWidth="388.0" text="Name" textFill="WHITE">
                                             <font>
-                                                <Font size="32.0" />
+                                                <Font size="28.0" />
                                             </font>
                                             <VBox.margin>
-                                                <Insets left="20.0" top="25.0" />
+                                                <Insets left="25.0" right="25.0" top="17.0" />
                                             </VBox.margin>
                                         </Label>
                                     </children>
                                 </VBox>
-                                <ImageView fx:id="logout_icon" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#handleLogoutIconClick" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="logout_icon" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#handleLogoutIconClick" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@images/icon-logout-gray.png" />
                                     </image>
                                     <HBox.margin>
-                                        <Insets top="25.0" />
+                                        <Insets left="40.0" top="20.0" />
                                     </HBox.margin>
                                 </ImageView>
                             </children>
@@ -59,7 +59,7 @@
             <center>
                 <Pane prefHeight="650.0" prefWidth="820.0" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox layoutX="60.0" layoutY="62.0" prefHeight="600.0" prefWidth="820.0" styleClass="backgroundColorPane">
+                        <VBox layoutX="60.0" layoutY="39.0" prefHeight="623.0" prefWidth="820.0">
                             <children>
                                 <HBox alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="820.0">
                                     <children>
@@ -80,7 +80,7 @@
                                     </children>
                                 </HBox>
                                 <Separator prefWidth="200.0" />
-                                <TableView fx:id="table_tracks" prefHeight="609.0" prefWidth="820.0">
+                                <TableView fx:id="table_tracks" prefHeight="526.0" prefWidth="820.0">
                                     <columns>
                                         <TableColumn fx:id="column_play" prefWidth="52.0" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" />
                                         <TableColumn fx:id="column_track" minWidth="0.0" prefWidth="356.8000183105469" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Трек" />
@@ -98,7 +98,7 @@
                 </Pane>
             </center>
         </BorderPane>
-        <Pane fx:id="logout_confirmation" layoutX="345.0" layoutY="275.0" prefHeight="200.0" prefWidth="250.0" styleClass="backgroundColorWindow" stylesheets="@Style.css">
+        <Pane fx:id="logout_confirmation" layoutX="345.0" layoutY="275.0" prefHeight="200.0" prefWidth="250.0" styleClass="backgroundColorWindow" stylesheets="@Style.css" visible="false">
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="250.0">
                     <children>
