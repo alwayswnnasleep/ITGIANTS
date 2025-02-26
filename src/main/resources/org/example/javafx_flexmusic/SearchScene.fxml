@@ -23,6 +23,14 @@
                      </image>
                   </ImageView>
                   <TextField prefHeight="38.0" prefWidth="356.0" promptText="Поиск" styleClass="backgroundColorSearch" />
+                  <ImageView fx:id="refresh_icon" fitHeight="30.0" fitWidth="34.0" onMouseClicked="#handleRefreshIconClick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon-refresh-white.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
                </children>
             </HBox>
          </top>
@@ -37,9 +45,9 @@
                         <TableColumn fx:id="column_play" prefWidth="52.0" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" />
                         <TableColumn fx:id="column_track" minWidth="0.0" prefWidth="237.5999755859375" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Трек" />
                         <TableColumn fx:id="column_artist" prefWidth="136.800048828125" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Исполнитель" />
-                        <TableColumn fx:id="column_album" prefWidth="129.5999755859375" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Альбом" />
+                        <TableColumn fx:id="column_genre" prefWidth="129.5999755859375" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Жанр" />
                         <TableColumn fx:id="column_duration" prefWidth="145.5999755859375" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Длительность" />
-                        <TableColumn fx:id="column_add" prefWidth="74.4000244140625" />
+                        <TableColumn fx:id="column_add" editable="false" prefWidth="74.4000244140625" sortable="false" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

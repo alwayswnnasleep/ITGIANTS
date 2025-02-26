@@ -8,6 +8,7 @@ import org.example.javafx_flexmusic.tools.FileSelector;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.List;
 
 public class Client {
 
@@ -56,15 +57,15 @@ public class Client {
         return null;
     }
 
-    public void getAllTracks() {
+    public List<Track> getAllTracks() {
         try {
             connection.connect(serverIp, serverPort);
-
-            trackService.getAllTracks();
-
+            List<Track> trackList = trackService.getAllTracks();
             connection.disconnect();
+            return trackList;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
