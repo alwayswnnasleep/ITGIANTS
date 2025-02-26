@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -78,7 +80,7 @@
 
                                             </font>
                                         </Label>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="157.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Создать плейлист">
+                              <Button fx:id="create_playlist_button" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#handleCreatePlaylistButton" prefHeight="33.0" prefWidth="157.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Создать плейлист">
                                  <graphic>
                                     <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -95,10 +97,13 @@
                                 <Separator prefWidth="200.0" />
                         <FlowPane fx:id="playlistContainer" prefHeight="448.0" prefWidth="820.0">
                            <children>
-                              <VBox alignment="CENTER" prefHeight="240.0" prefWidth="220.0" styleClass="backgroundColorPane">
+                              <VBox fx:id="favorite_playlist" alignment="CENTER" prefHeight="240.0" prefWidth="220.0" styleClass="backgroundColorPane">
                                  <children>
-                                    <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Playlist name" textFill="WHITE">
+                                    <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/flexmusic-logo.png" />
+                                       </image></ImageView>
+                                    <Label text="Избранное" textFill="WHITE">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
@@ -165,5 +170,30 @@
                 </VBox>
             </children>
         </Pane>
+      <Pane fx:id="shadows_pane" prefHeight="686.0" prefWidth="940.0" styleClass="backgroundColor4" stylesheets="@Style.css" visible="false" />
+      <Pane fx:id="create_playlist_pane" layoutX="296.0" layoutY="172.0" prefHeight="317.0" prefWidth="317.0" stylesheets="@Style.css" visible="false">
+         <children>
+            <TextField fx:id="playlist_name_textfield" layoutX="84.0" layoutY="224.0" promptText="Название плейлиста" styleClass="textFieldsAuth" />
+            <ImageView fx:id="place_image_playlist" fitHeight="134.0" fitWidth="134.0" layoutX="91.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleSelectImageButton">
+               <image>
+                  <Image url="@images/icon-place-photo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="confirm_create_playlist_button" layoutX="111.0" layoutY="264.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #17bd36;" styleClass="textFieldsAuth" text="Создать" onMouseClicked="#handleConfirmCreatePlaylistButton" />
+            <Button fx:id="close_button_playlist" layoutX="236.0" layoutY="20.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="0.0" text="Button" onMouseClicked="#handleCloseCreatingPlaylistButton">
+               <graphic>
+                  <ImageView fx:id="close_image" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon-close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="backgroundColorSearch" />
+            <String fx:value="shadows" />
+         </styleClass>
+      </Pane>
     </children>
 </AnchorPane>

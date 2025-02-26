@@ -74,7 +74,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Button>
-                <Button fx:id="upload_button" onAction="#handleUploadButtonClick" mnemonicParsing="false" prefHeight="23.0" prefWidth="36.0" stylesheets="@Style.css" text="upload">
+                <Button fx:id="upload_button" mnemonicParsing="false" onAction="#handleUploadButtonClick" prefHeight="23.0" prefWidth="36.0" stylesheets="@Style.css" text="upload">
                     <graphic>
                         <ImageView fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -203,7 +203,7 @@
                         <String fx:value="slider" />
                     </styleClass>
                 </Slider>
-                <Button fx:id="button_volume" mnemonicParsing="false" onAction="#setVisibleVolumePanel" prefHeight="64.0" prefWidth="82.0" text="Button">
+                <Button fx:id="button_volume" mnemonicParsing="false" onAction="#setVisibleVolumePanel" prefHeight="64.0" prefWidth="55.0" text="Button">
                     <graphic>
                         <ImageView id="button_v" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -212,9 +212,27 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Button fx:id="repeat_button" mnemonicParsing="false" onAction="#setVisibleVolumePanel" prefHeight="64.0" prefWidth="47.0" text="Button">
+               <graphic>
+                  <ImageView id="button_v" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/repeat_24dp_666666_FILL0_wght400_GRAD0_opsz24.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="shuffle_button" mnemonicParsing="false" onAction="#setVisibleVolumePanel" prefHeight="64.0" prefWidth="47.0" text="Button">
+               <graphic>
+                  <ImageView id="button_v" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icon-shuffle-gray.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </HBox>
-        <Pane fx:id="pane_volume_slider" layoutX="797.0" layoutY="491.0" prefHeight="200.0" prefWidth="62.0" styleClass="backgroundColorChangeVolume" stylesheets="@Style.css" visible="false">
+        <Pane fx:id="pane_volume_slider" layoutX="794.0" layoutY="491.0" prefHeight="200.0" prefWidth="62.0" styleClass="backgroundColorChangeVolume" stylesheets="@Style.css" visible="false">
             <children>
                 <Slider fx:id="slider_volume" layoutX="25.0" layoutY="6.0" orientation="VERTICAL" prefHeight="189.0" prefWidth="14.0" />
             </children>
