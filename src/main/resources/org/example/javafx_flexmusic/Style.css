@@ -86,18 +86,21 @@
     -fx-background-color: rgba(50, 50, 50, 0.4);
     -fx-background-radius: 14 14 0 0;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.95), 20, 0, 0, 0);
+
+
 }
 
 .table-view .column-header-background {
     -fx-background-color: rgba(50, 50, 50, 0.4);
     -fx-background-radius: 14;
-    -fx-background-insets: 0 0 10 0;
+
 }
 
 .table-view .column-header, .table-view .filler {
     -fx-pref-height: 50px;
-    -fx-border-width: 0 0 10 0;
+    -fx-border-width: 0;
     -fx-background-color: transparent;
+
 }
 
 .table-view .column-header .label {
@@ -105,6 +108,46 @@
     -fx-font-size: 14px;
     -fx-alignment: center-left;
     -fx-padding: 0 10 0 10;
+}
+
+
+
+.table-row-cell  {
+    -fx-table-cell-border-color: transparent;
+}
+.table-row-cell:filled .label {
+    -fx-text-fill: white;
+}
+.table-row-cell:filled .table-cell {
+    -fx-text-fill: white;
+}
+
+.table-row-cell:filled:white .table-cell {
+    -fx-text-fill: white;
+}
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-insets: -1;
+}
+
+.table-view .placeholder .label {
+    -fx-text-fill: white;
+    -fx-padding: 20px;
+    -fx-border-insets: -1;
+}
+
+.table-row-cell:filled {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-insets: -1;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-insets: -1;
+
 }
 .backgroundColor4 {
 
