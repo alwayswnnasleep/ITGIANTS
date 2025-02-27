@@ -10,6 +10,7 @@
 .button-auth{
 
 }
+
 .textFieldsAuth{
     -fx-background-radius: 20px;
     -fx-background-color: #443f46;
@@ -41,6 +42,7 @@
 .backgroundColorSearch {
     -fx-background-color: #312d33;
     -fx-background-radius:50;
+    -fx-text-fill: white;
 }
 .backgroundColorLeft {
     -fx-background-color: linear-gradient(to top, #4B1463 2%, #9C38C8 33%, #35389C 80%, #143fd0 99%);
