@@ -7,14 +7,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.application.Platform;
 import org.example.javafx_flexmusic.client.Client;
 import org.example.javafx_flexmusic.db.entity.Track;
+import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,7 +31,9 @@ public class SearchController implements Initializable {
     @FXML
     private TableColumn<Track, String> column_track, column_artist, column_genre, column_duration;
     @FXML
-    private ImageView refresh_icon;
+    private ImageView refresh_icon, search_icon;
+    @FXML
+    private TextField search_field;
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -46,43 +50,68 @@ public class SearchController implements Initializable {
     }
 
     private void loadTracks() {
-        List<Track> hardcodedTracks = Arrays.asList(
-                new Track(1, 1, "3:30", "Song 1", "http://example.com/song1", "Genre 1", "Artist 1"),
-                new Track(2, 1, "4:15", "Song 2", "http://example.com/song2", "Genre 2", "Artist 2"),
-                new Track(3, 1, "2:45", "Song 3", "http://example.com/song3", "Genre 3", "Artist 3")
-        );
+        Task<List<Track>> task = new Task<List<Track>>() {
+            @Override
+            protected List<Track> call() throws Exception {
+                Client client = new Client();
+                return client.getAllTracks();
+            }
 
-        // Добавляем треки в список
-        trackList.clear();
-        trackList.addAll(hardcodedTracks);
+            @Override
+            protected void succeeded() {
+                trackList.clear();
+                trackList.addAll(getValue());
+            }
+
+            @Override
+            protected void failed() {
+                Throwable exception = getException();
+                exception.printStackTrace();
+            }
+        };
+        new Thread(task).start();
     }
-
-
-//    private void loadTracks() {
-//        Task<List<Track>> task = new Task<List<Track>>() {
-//            @Override
-//            protected List<Track> call() throws Exception {
-//                Client client = new Client();
-//                return client.getAllTracks();
-//            }
-//
-//            @Override
-//            protected void succeeded() {
-//                trackList.clear();
-//                trackList.addAll(getValue());
-//            }
-//
-//            @Override
-//            protected void failed() {
-//                Throwable exception = getException();
-//                exception.printStackTrace();
-//            }
-//        };
-//        new Thread(task).start();
-//    }
 
     @FXML
     private void handleRefreshIconClick() {
         loadTracks();
+    }
+
+    @FXML
+    private void handleTableViewClick() {
+        Track selectedTrack = table_tracks.getSelectionModel().getSelectedItem();
+        if (selectedTrack != null) {
+            System.out.println("Выбран трек: " + selectedTrack.getTitle());
+        }
+    }
+
+    @FXML
+    public void handleSearchIconClick() {
+        String currentText = search_field.getText();
+        if(currentText.isEmpty()) {
+            loadTracks();
+            return;
+        }
+        Task<List<Track>> searchTask = new Task<List<Track>>() {
+            @Override
+            protected List<Track> call() throws Exception {
+                Client client = new Client();
+                return client.searchTracks(currentText);
+            }
+
+            @Override
+            protected void succeeded() {
+                trackList.clear();
+                trackList.addAll(getValue());
+            }
+
+            @Override
+            protected void failed() {
+                Throwable exception = getException();
+                exception.printStackTrace();
+            }
+        };
+        new Thread(searchTask).start();
+        System.out.println("Текущий текст: " + currentText);
     }
 }

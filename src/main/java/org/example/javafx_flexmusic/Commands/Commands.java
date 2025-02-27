@@ -4,5 +4,6 @@ public enum Commands {
     LOGIN_USER,
     REGISTER_USER,
     GET_ALL_TRACKS,
-    POST_TRACK
+    POST_TRACK,
+    SEARCH_TRACKS
 }

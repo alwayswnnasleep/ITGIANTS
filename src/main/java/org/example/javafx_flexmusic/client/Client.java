@@ -68,4 +68,16 @@ public class Client {
         }
         return null;
     }
+
+    public List<Track> searchTracks(String text) {
+        try {
+            connection.connect(serverIp,serverPort);
+            List<Track> trackList = trackService.searchTracks(text);
+            connection.disconnect();
+            return trackList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

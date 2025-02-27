@@ -17,12 +17,12 @@
          <top>
             <HBox alignment="CENTER" prefHeight="96.0" prefWidth="940.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="search_icon" onMouseClicked="#handleSearchIconClick" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icon-search-gray.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="38.0" prefWidth="356.0" promptText="Поиск" styleClass="backgroundColorSearch" />
+                  <TextField fx:id="search_field" prefHeight="38.0" prefWidth="356.0" promptText="Поиск" styleClass="backgroundColorSearch" />
                   <ImageView fx:id="refresh_icon" fitHeight="30.0" fitWidth="34.0" onMouseClicked="#handleRefreshIconClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/icon-refresh-white.png" />
@@ -40,7 +40,7 @@
                   <Insets bottom="64.0" left="120.0" right="60.0" />
                </BorderPane.margin>
                <children>
-                  <TableView fx:id="table_tracks" layoutX="-22.0" layoutY="2.0" prefHeight="589.0" prefWidth="760.0">
+                  <TableView fx:id="table_tracks" layoutX="-22.0" layoutY="2.0" onMouseClicked="#handleTableViewClick" prefHeight="589.0" prefWidth="760.0">
                      <columns>
                         <TableColumn fx:id="column_play" prefWidth="52.0" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" />
                         <TableColumn fx:id="column_track" minWidth="0.0" prefWidth="237.5999755859375" resizable="false" sortable="false" style="-fx-aligment: left;" styleClass="column-view" text="Трек" />
