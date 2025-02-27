@@ -19,7 +19,7 @@
                <children>
                   <ImageView fx:id="search_icon" onMouseClicked="#handleSearchIconClick" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/icon-search-gray.png" />
+                        <Image url="@images/icon-search-white.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="search_field" prefHeight="38.0" prefWidth="356.0" promptText="Поиск" styleClass="backgroundColorSearch" />
