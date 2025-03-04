@@ -19,14 +19,13 @@ public class JsonSerializer {
         return objectMapper.readValue(json, clazz);
     }
 
-    public static List<Track> parseStringToTrackList(String jsonTracks) throws Exception {
-        List<Track> tracks = new ArrayList<>();
-        String[] trackJsons = jsonTracks.trim().split("\\s+");
-
-        for (String trackJson : trackJsons) {
-            Track track = JsonSerializer.deserialize(trackJson, Track.class);
-            tracks.add(track);
+    public static <T> List<T> parseStringToList(String jsonList, Class<T> clazz) throws Exception {
+        List<T> resultList = new ArrayList<>();
+        String[] jsonItems = jsonList.trim().split("\\s+");
+        for (String jsonItem : jsonItems) {
+            T item = JsonSerializer.deserialize(jsonItem, clazz);
+            resultList.add(item);
         }
-        return tracks;
+        return resultList;
     }
 }

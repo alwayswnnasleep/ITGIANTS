@@ -2,65 +2,59 @@ package org.example.javafx_flexmusic.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView; // Правильный импорт
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.example.javafx_flexmusic.client.Client;
+import org.example.javafx_flexmusic.db.entity.Playlist;
 import org.example.javafx_flexmusic.db.entity.UserSession;
+import org.example.javafx_flexmusic.tools.FileSelector;
 import org.example.javafx_flexmusic.tools.StageSwitcher;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProfileController implements Initializable {
+public class ProfileController extends AbstractController implements Initializable {
+
+    private List<Playlist> playlists;
+    private File selectedPlaylistImage;
+
     @FXML
     private FlowPane playlistContainer;
     @FXML
-    Pane shadows_pane, create_playlist_pane;
+    private Pane shadows_pane, create_playlist_pane, logout_confirmation;
     @FXML
-    private ImageView place_image_playlist; // ImageView для выбора изображения
+    private ImageView place_image_playlist, logout_icon;
     @FXML
     private TextField playlist_name_textfield;
     @FXML
-    Label username_label;
-
+    private Label username_label;
     @FXML
-    Pane logout_confirmation;
-
-    @FXML
-    ImageView logout_ico;
-
-    @FXML
-    Button yes_button, no_button, create_playlist_button, confirm_create_playlist_button, close_button_playlist;
-    @FXML
-    public void handleSelectImageButton() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Выберите изображение");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (*.png, *.jpg, *.gif)", "*.png", "*.jpg", "*.gif");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        Stage stage = (Stage) place_image_playlist.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
-
-        if (file != null) {
-
-            Image image = new Image(file.toURI().toString());
-            place_image_playlist.setImage(image);
-        }
-    }
+    private Button yes_button, no_button, create_playlist_button, confirm_create_playlist_button, close_button_playlist;
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        initPlaylistContainer();
+        updatePlaylists();
         logout_confirmation.setVisible(false);
         String username = UserSession.getInstance().getCurrentUser().getUsername();
         username_label.setText(username);
+    }
+
+    private void initPlaylistContainer() {
+        playlistContainer.setHgap(10);
+        playlistContainer.setVgap(10);
     }
 
     @FXML
@@ -90,43 +84,81 @@ public class ProfileController implements Initializable {
     }
 
     @FXML
-    public void handleConfirmCreatePlaylistButton() {
-        createPlaylist();
+    public void handleSelectImageButton() {
+        selectedPlaylistImage = FileSelector.selectFile("Select image", "png", "png");
+        if (selectedPlaylistImage != null) {
+            Image image = new Image(selectedPlaylistImage.toURI().toString());
+            place_image_playlist.setImage(image);
+        }
     }
-    private void setVisibility(boolean flag){
+
+    private void setVisibility(boolean flag) {
         shadows_pane.setVisible(flag);
         create_playlist_pane.setVisible(flag);
     }
+
     private void clearFields() {
-        place_image_playlist.setImage(null); // Очищаем изображение
-        playlist_name_textfield.clear(); // Очищаем текстовое поле
+        place_image_playlist.setImage(null);
+        playlist_name_textfield.clear();
     }
-    private void createPlaylist() {
 
-        Image playlistImage = place_image_playlist.getImage();
+    private void displayPlaylists() {
+        playlistContainer.getChildren().clear();
+        for (Playlist playlist : playlists) {
+            VBox playlistCard = createPlaylistCard(playlist);
+            playlistContainer.getChildren().add(playlistCard);
+        }
+    }
+
+
+    private VBox createPlaylistCard(Playlist playlist) {
+        VBox playlistCard = new VBox();
+        playlistCard.setAlignment(Pos.CENTER);
+        playlistCard.setPrefSize(220, 240);
+        playlistCard.setSpacing(10);
+        playlistCard.getStyleClass().add("playlist-card");
+        ImageView playlistImageView = new ImageView();
+        playlistImageView.setFitWidth(200);
+        playlistImageView.setFitHeight(200);
+        playlistImageView.setPreserveRatio(true);
+        playlistImageView.setPickOnBounds(true);
+        if (playlist.getImage() != null && !playlist.getImage().isEmpty()) {
+            try {
+                Image image = new Image(playlist.getImage(), true);
+                playlistImageView.setImage(image);
+            } catch (Exception e) {
+                System.err.println("Ошибка загрузки изображения: " + e.getMessage());
+            }
+        }
+        Label playlistNameLabel = new Label(playlist.getName());
+        playlistNameLabel.setFont(new Font(22));
+        playlistNameLabel.setTextFill(Color.WHITE); // Белый цвет текста
+        playlistCard.getChildren().addAll(playlistImageView, playlistNameLabel);
+        return playlistCard;
+    }
+
+    @FXML
+    private void handleConfirmCreatePlaylistButtonClick() {
+        Client client = new Client();
         String playlistName = playlist_name_textfield.getText();
-
-        VBox newPlaylistBox = new VBox();
-        newPlaylistBox.setAlignment(javafx.geometry.Pos.CENTER);
-        newPlaylistBox.setPrefHeight(240.0);
-        newPlaylistBox.setPrefWidth(220.0);
-        newPlaylistBox.getStyleClass().add("backgroundColorPane");
-
-        ImageView newImageView = new ImageView(playlistImage);
-        newImageView.setFitHeight(200.0);
-        newImageView.setFitWidth(200.0);
-        newImageView.setPickOnBounds(true);
-        newImageView.setPreserveRatio(true);
-
-        Label newLabel = new Label(playlistName);
-        newLabel.setTextFill(javafx.scene.paint.Color.WHITE);
-        javafx.scene.text.Font font = new javafx.scene.text.Font(22.0);
-        newLabel.setFont(font);
-
-        newPlaylistBox.getChildren().addAll(newImageView, newLabel);
-
-        playlistContainer.getChildren().add(newPlaylistBox);
+        if (playlistName == null || playlistName.isEmpty() || selectedPlaylistImage == null) {
+            System.err.println("Название плейлиста не может быть пустым");
+            return;
+        }
+        Playlist playlist = new Playlist();
+        playlist.setUserId(UserSession.getInstance().getCurrentUser().getId());
+        playlist.setName(playlistName);
+        client.savePlaylist(playlist, selectedPlaylistImage);
+        updatePlaylists();
         setVisibility(false);
         clearFields();
+    }
+
+    private void updatePlaylists() {
+        Client client = new Client();
+        playlists = client.getAllPlaylists();
+        if (playlists != null && !playlists.isEmpty()) {
+            displayPlaylists();
+        }
     }
 }

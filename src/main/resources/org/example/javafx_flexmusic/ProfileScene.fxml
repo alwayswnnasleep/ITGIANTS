@@ -66,7 +66,7 @@
                             <children>
                                 <HBox alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="820.0">
                                     <children>
-                                        <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="158.0" text="Мои плейлисты" textFill="WHITE">
+                                        <Label fx:id="playlists_label" alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="158.0" text="Мои плейлисты" textFill="WHITE">
                                             <font>
                                                 <Font size="20.0" />
                                             </font>
@@ -74,13 +74,13 @@
                                                 <Insets left="10.0" top="-5.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <Label alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="137.0" text="Добавленное" textFill="#999696">
+                                        <Label fx:id="added_label" alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="137.0" text="Добавленное" textFill="#999696">
                                             <font>
                                                 <Font size="20.0" />
 
                                             </font>
                                         </Label>
-                              <Button fx:id="create_playlist_button" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#handleCreatePlaylistButton" prefHeight="33.0" prefWidth="157.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Создать плейлист">
+                              <Button fx:id="create_playlist_button" alignment="CENTER" mnemonicParsing="false" onAction="#handleCreatePlaylistButton" prefHeight="33.0" prefWidth="157.0" style="-fx-background-radius: 5;" styleClass="textFieldsAuth" text="Создать плейлист">
                                  <graphic>
                                     <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -97,21 +97,28 @@
                                 <Separator prefWidth="200.0" />
                         <FlowPane fx:id="playlistContainer" prefHeight="448.0" prefWidth="820.0">
                            <children>
-                              <VBox fx:id="favorite_playlist" alignment="CENTER" prefHeight="240.0" prefWidth="220.0" styleClass="backgroundColorPane">
+                              <VBox fx:id="favorite_playlist" alignment="CENTER" prefHeight="240.0" prefWidth="220.0">
                                  <children>
-                                    <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="140.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/flexmusic-logo.png" />
+                                          <Image url="@images/image-favorite-playlist-gray.png" />
                                        </image></ImageView>
                                     <Label text="Избранное" textFill="WHITE">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
                                     </Label>
                                  </children>
                                  <FlowPane.margin>
                                     <Insets right="20.0" />
                                  </FlowPane.margin>
+                                 <styleClass>
+                                    <String fx:value="backgroundColorPane" />
+                                    <String fx:value="playlist-card" />
+                                 </styleClass>
                               </VBox>
                            </children>
                            <VBox.margin>
@@ -174,13 +181,13 @@
       <Pane fx:id="create_playlist_pane" layoutX="296.0" layoutY="172.0" prefHeight="317.0" prefWidth="317.0" stylesheets="@Style.css" visible="false">
          <children>
             <TextField fx:id="playlist_name_textfield" layoutX="84.0" layoutY="224.0" promptText="Название плейлиста" styleClass="textFieldsAuth" />
-            <ImageView fx:id="place_image_playlist" fitHeight="134.0" fitWidth="134.0" layoutX="91.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#handleSelectImageButton">
+            <ImageView fx:id="place_image_playlist" fitHeight="134.0" fitWidth="134.0" layoutX="91.0" layoutY="68.0" onMouseClicked="#handleSelectImageButton" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/icon-place-photo.png" />
                </image>
             </ImageView>
-            <Button fx:id="confirm_create_playlist_button" layoutX="111.0" layoutY="264.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #17bd36;" styleClass="textFieldsAuth" text="Создать" onMouseClicked="#handleConfirmCreatePlaylistButton" />
-            <Button fx:id="close_button_playlist" layoutX="236.0" layoutY="20.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="0.0" text="Button" onMouseClicked="#handleCloseCreatingPlaylistButton">
+            <Button fx:id="confirm_create_playlist_button" layoutX="111.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleConfirmCreatePlaylistButtonClick" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #17bd36;" styleClass="textFieldsAuth" text="Создать" />
+            <Button fx:id="close_button_playlist" layoutX="236.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#handleCloseCreatingPlaylistButton" prefHeight="48.0" prefWidth="0.0" text="Button">
                <graphic>
                   <ImageView fx:id="close_image" fitHeight="38.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>

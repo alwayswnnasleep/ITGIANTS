@@ -17,7 +17,7 @@ public class TrackService {
     }
 
     public void postTrack(File file, Track track) throws Exception {
-        connection.sendCommand(Commands.POST_TRACK);
+        connection.sendCommand(Commands.SAVE_TRACK);
         if (connection.receiveConfirmation()) {
             connection.sendFile(file);
             String url = connection.readLine();
@@ -31,18 +31,20 @@ public class TrackService {
         connection.sendCommand(Commands.GET_ALL_TRACKS);
         if (connection.receiveConfirmation()) {
             String jsonTrackList = connection.readLine();
-            List<Track> trackList = JsonSerializer.parseStringToTrackList(jsonTrackList);
-            return trackList;
+            if (!jsonTrackList.isEmpty()) {
+                List<Track> trackList = JsonSerializer.parseStringToList(jsonTrackList, Track.class);
+                return trackList;
+            }
         }
         return null;
     }
 
     public List<Track> searchTracks(String text) throws Exception {
         connection.sendCommand(Commands.SEARCH_TRACKS);
-        if(connection.receiveConfirmation()) {
+        if (connection.receiveConfirmation()) {
             connection.writeLine(text);
             String jsonTrackList = connection.readLine();
-            List<Track> trackList = JsonSerializer.parseStringToTrackList(jsonTrackList);
+            List<Track> trackList = JsonSerializer.parseStringToList(jsonTrackList, Track.class);
             return trackList;
         }
         return null;

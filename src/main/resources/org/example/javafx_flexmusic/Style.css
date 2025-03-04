@@ -222,3 +222,12 @@
     -fx-background-radius:50;
     -fx-text-fill: white;
 }
+
+.playlist-card {
+    -fx-background-radius: 15; /* Полукруглые углы */
+    -fx-padding: 10; /* Отступы внутри карточки */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5); /* Тень */
+    -fx-border-color: white; /* Цвет границы */
+    -fx-border-width: 2; /* Ширина границы */
+    -fx-border-radius: 15; /* Полукруглые углы границы */
+}

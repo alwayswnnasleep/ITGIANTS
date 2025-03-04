@@ -10,17 +10,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.application.Platform;
 import org.example.javafx_flexmusic.client.Client;
 import org.example.javafx_flexmusic.db.entity.Track;
-import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SearchController implements Initializable {
+public class SearchController extends AbstractController implements Initializable {
 
     private ObservableList<Track> trackList = FXCollections.observableArrayList();
 
@@ -36,7 +36,7 @@ public class SearchController implements Initializable {
     private TextField search_field;
 
     @Override
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources)  {
         try {
             column_track.setCellValueFactory(new PropertyValueFactory<>("title"));
             column_artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -59,8 +59,13 @@ public class SearchController implements Initializable {
 
             @Override
             protected void succeeded() {
+                List<Track> tracks = getValue();
                 trackList.clear();
-                trackList.addAll(getValue());
+                if (tracks != null && !tracks.isEmpty()) {
+                    trackList.addAll(tracks);
+                } else {
+                    System.out.println("Нет доступных треков.");
+                }
             }
 
             @Override
@@ -78,10 +83,15 @@ public class SearchController implements Initializable {
     }
 
     @FXML
-    private void handleTableViewClick() {
-        Track selectedTrack = table_tracks.getSelectionModel().getSelectedItem();
-        if (selectedTrack != null) {
-            System.out.println("Выбран трек: " + selectedTrack.getTitle());
+    private void handleTableViewClick( MouseEvent event) throws Exception{
+        if(event.getButton() == MouseButton.PRIMARY) {
+            System.out.println("PRIMARY");
+            Track selectedTrack = table_tracks.getSelectionModel().getSelectedItem();
+            if (selectedTrack != null && mediaPlayerController != null) {
+                mediaPlayerController.setTrack(selectedTrack);
+            }
+        } else if(event.getButton() == MouseButton.SECONDARY) {
+            System.out.println("SECONDARY");
         }
     }
 
@@ -112,6 +122,5 @@ public class SearchController implements Initializable {
             }
         };
         new Thread(searchTask).start();
-        System.out.println("Текущий текст: " + currentText);
     }
 }

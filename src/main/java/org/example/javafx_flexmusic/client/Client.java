@@ -1,24 +1,26 @@
 package org.example.javafx_flexmusic.client;
 
+import org.example.javafx_flexmusic.db.entity.Playlist;
 import org.example.javafx_flexmusic.db.entity.Track;
 import org.example.javafx_flexmusic.db.entity.User;
+import org.example.javafx_flexmusic.db.entity.UserSession;
+import org.example.javafx_flexmusic.services.PlaylistService;
 import org.example.javafx_flexmusic.services.TrackService;
 import org.example.javafx_flexmusic.services.UserService;
-import org.example.javafx_flexmusic.tools.FileSelector;
 
 import java.io.File;
-import java.sql.Connection;
 import java.util.List;
 
 public class Client {
 
-    private final String serverIp = "192.168.43.178";
+    private final String serverIp = "localhost";
     private final int serverPort = 12345;
     private final SocketConnection connection = new SocketConnection();
     private final TrackService trackService = new TrackService(connection);
     private final UserService userService = new UserService(connection);
+    private final PlaylistService playlistService = new PlaylistService(connection);
 
-    public void postTrack(Track track, File file) {
+    public void saveTrack(Track track, File file) {
         try {
             connection.connect(serverIp, serverPort);
             trackService.postTrack(file, track);
@@ -76,6 +78,38 @@ public class Client {
             connection.disconnect();
             return trackList;
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void savePlaylist(Playlist playlist, File file) {
+        try {
+            connection.connect(serverIp, serverPort);
+            playlistService.savePlaylist(playlist, file);
+            connection.disconnect();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createDefaultPlaylist() {
+        try {
+            connection.connect(serverIp, serverPort);
+            playlistService.createDefaultPlaylist();
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Playlist> getAllPlaylists() {
+        try {
+            connection.connect(serverIp, serverPort);
+            List<Playlist> playlists = playlistService.getAllPlaylists();
+            connection.disconnect();
+            return playlists;
+        } catch(Exception e ) {
             e.printStackTrace();
         }
         return null;

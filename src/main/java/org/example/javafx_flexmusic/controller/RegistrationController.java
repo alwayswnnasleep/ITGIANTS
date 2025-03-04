@@ -8,15 +8,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.javafx_flexmusic.client.Client;
+import org.example.javafx_flexmusic.db.entity.Playlist;
 import org.example.javafx_flexmusic.db.entity.User;
 import org.example.javafx_flexmusic.db.entity.UserSession;
+import org.example.javafx_flexmusic.services.PlaylistService;
+import org.example.javafx_flexmusic.services.UserService;
 import org.example.javafx_flexmusic.tools.AuthUtils;
 import org.example.javafx_flexmusic.tools.StageSwitcher;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RegistrationController implements Initializable {
+public class RegistrationController extends AbstractController implements Initializable {
 
     private static final String VISIBILITY_OFF_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-off-gray.png";
     private static final String VISIBILITY_ON_ICON_PATH = "/org/example/javafx_flexmusic/images/icon-visibility-gray.png";
@@ -43,6 +47,10 @@ public class RegistrationController implements Initializable {
 
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        initMediaPlayerController();
+        if(mediaPlayerController != null) {
+            mediaPlayerController.stopMusic();
+        }
         resetToSignInMode();
     }
 
@@ -140,6 +148,7 @@ public class RegistrationController implements Initializable {
 
         if (registeredUser != null) {
             handleSuccessfulLogin(registeredUser);
+            client.createDefaultPlaylist();
         }
     }
 

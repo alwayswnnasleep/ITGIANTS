@@ -3,15 +3,16 @@ package org.example.javafx_flexmusic.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.example.javafx_flexmusic.db.entity.Track;
+import org.example.javafx_flexmusic.controller.manager.ControllerManager;
 import org.example.javafx_flexmusic.db.entity.UserSession;
 import org.example.javafx_flexmusic.tools.IconManager;
+import org.example.javafx_flexmusic.tools.SceneSwitcher;
 import org.example.javafx_flexmusic.tools.StageSwitcher;
 
 import java.net.URL;
@@ -19,7 +20,6 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private MediaPlayerController mediaManager;
     private IconManager iconManager;
 
     private static final String PROFILE_ICON_WHITE_PATH = "/org/example/javafx_flexmusic/images/icon-profile-white.png";
@@ -31,25 +31,14 @@ public class MainController implements Initializable {
     private static final String UPLOAD_ICON_WHITE_PATH = "/org/example/javafx_flexmusic/images/icon-upload-white.png";
     private static final String UPLOAD_ICON_GRAY_PATH = "/org/example/javafx_flexmusic/images/icon-upload-gray.png";
 
-
-    @FXML
-    private TableView<Track> table_tracks;
-    @FXML
-    private TableColumn<Track, Void> column_play;
-    @FXML
-    private ImageView playPauseIcon, profile_icon;
     @FXML
     private Button music_button, profile_button, radio_button, upload_button;
-    @FXML
-    private Pane pane_volume_slider;
-    @FXML
-    private Slider slider_time;
-    @FXML
-    private Slider slider_volume;
-    @FXML
-    private Label currentTimeLabel;
+
     @FXML
     private BorderPane border_pane;
+
+    @FXML
+    private Pane player_pane;
 
     private void initializeIconManager() {
         iconManager = new IconManager();
@@ -62,31 +51,24 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         try {
-            AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/SearchScene.fxml"));
-            border_pane.setCenter(view);
+            FXMLLoader playerLoader = new FXMLLoader(getClass().getResource("/org/example/javafx_flexmusic/MediaPlayerScene.fxml"));
+            AnchorPane viewPlayer = playerLoader.load();
+            MediaPlayerController mediaPlayerController = playerLoader.getController();
+            ControllerManager.getInstance().setMediaPlayerController(mediaPlayerController);
+            player_pane.getChildren().add(viewPlayer);
             initializeIconManager();
-            mediaManager = new MediaPlayerController(slider_time, slider_volume, playPauseIcon, currentTimeLabel);
+            Parent parent = SceneSwitcher.loadScene("/org/example/javafx_flexmusic/SearchScene.fxml");
+            border_pane.setCenter(parent);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    @FXML
-    private void playMusic() {
-        mediaManager.togglePlayPause();
-    }
-
-    @FXML
-    private void setVisibleVolumePanel() {
-        pane_volume_slider.setVisible(!pane_volume_slider.isVisible());
     }
 
     @FXML
     private void handleMusicButtonClick() throws Exception {
         iconManager.selectButton(music_button);
-        AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/SearchScene.fxml"));
-        border_pane.setCenter(view);
+        Parent parent = SceneSwitcher.loadScene("/org/example/javafx_flexmusic/SearchScene.fxml");
+        border_pane.setCenter(parent);
     }
 
     @FXML
@@ -95,19 +77,19 @@ public class MainController implements Initializable {
             StageSwitcher.switchStage((Stage) profile_button.getScene().getWindow(), "/org/example/javafx_flexmusic/RegistrationScene.fxml");
         } else {
             iconManager.selectButton(profile_button);
-            AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/ProfileScene.fxml"));
-            border_pane.setCenter(view);
+            Parent parent = SceneSwitcher.loadScene("/org/example/javafx_flexmusic/ProfileScene.fxml");
+            border_pane.setCenter(parent);
         }
     }
 
     @FXML
-    private void handleUploadButtonClick() throws Exception{
-        if(UserSession.getInstance().getCurrentUser() == null) {
+    private void handleUploadButtonClick() throws Exception {
+        if (UserSession.getInstance().getCurrentUser() == null) {
             StageSwitcher.switchStage((Stage) profile_button.getScene().getWindow(), "/org/example/javafx_flexmusic/RegistrationScene.fxml");
         } else {
             iconManager.selectButton(upload_button);
-            AnchorPane view = FXMLLoader.load(getClass().getResource("/org/example/javafx_flexmusic/UploadTrackScene.fxml"));
-            border_pane.setCenter(view);
+            Parent parent = SceneSwitcher.loadScene("/org/example/javafx_flexmusic/UploadTrackScene.fxml");
+            border_pane.setCenter(parent);
         }
     }
 }

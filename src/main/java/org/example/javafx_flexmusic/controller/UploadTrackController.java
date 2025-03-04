@@ -8,8 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.example.javafx_flexmusic.client.Client;
 import org.example.javafx_flexmusic.db.entity.Track;
@@ -67,7 +65,7 @@ public class UploadTrackController implements Initializable {
             @Override
             protected Void call() throws Exception {
                 Client client = new Client();
-                client.postTrack(track, file);
+                client.saveTrack(track, file);
                 return null;
             }
         };
@@ -88,7 +86,7 @@ public class UploadTrackController implements Initializable {
 
     @FXML
     public void handleSelectFileButtonClick() {
-        file = FileSelector.selectMp3File();
+        file = FileSelector.selectFile("Select mp3", "mp3", "mp3");
         if(file != null) {
            select_file_button.setText(file.getName());
         }
