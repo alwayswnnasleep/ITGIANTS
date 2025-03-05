@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,30 +20,62 @@
             <!-- Основной контейнер -->
             <StackPane alignment="CENTER" prefHeight="700.0" prefWidth="940.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="178.0" prefWidth="940.0">
+                  <Pane prefHeight="178.0" prefWidth="940.0" style="-fx-background-radius: 20;">
                      <children>
                         <VBox alignment="CENTER" layoutX="65.0" layoutY="79.0" prefHeight="553.0" prefWidth="807.0" styleClass="backgroundColor4">
                            <children>
-                              <Label text="Здесь будет радио" textFill="WHITE">
+                              <Label alignment="CENTER" prefHeight="28.0" prefWidth="506.0" text="Название радио" textFill="WHITE">
                                  <font>
-                                    <Font name="Arial Black" size="28.0" />
+                                    <Font name="Calibri" size="39.0" />
                                  </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
                               </Label>
-                              <HBox alignment="CENTER" prefHeight="426.0" prefWidth="807.0">
+                              <Pane prefHeight="395.0" prefWidth="807.0">
                                  <children>
-                                    <ImageView fitHeight="220.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="214.0" fitWidth="214.0" layoutX="104.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@images/icon-radio-white.png" />
+                                          <Image url="@images/flexmusic-logo.png" />
                                        </image>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
                                     </ImageView>
+                                    <Pane layoutX="343.0" layoutY="81.0" prefHeight="199.0" prefWidth="359.0" style="-fx-background-radius: 20;" styleClass="backgroundColor4">
+                                       <children>
+                                          <HBox layoutX="84.0" layoutY="117.0" prefHeight="66.0" prefWidth="200.0">
+                                             <children>
+                                                <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/icon-previous-gray.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/icon-nostart-gray.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="70.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/icon-next-gray.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="61.0" layoutY="46.0" prefHeight="70.0" prefWidth="258.0">
+                                             <children>
+                                                <ImageView fitHeight="70.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@images/icon-volume-gray.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Slider prefHeight="14.0" prefWidth="186.0">
+                                                   <HBox.margin>
+                                                      <Insets top="25.0" />
+                                                   </HBox.margin>
+                                                </Slider>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </Pane>
+                                    <HBox prefHeight="66.0" prefWidth="200.0" />
                                  </children>
-                              </HBox>
+                              </Pane>
                            </children>
                         </VBox>
                      </children>
